@@ -8,8 +8,6 @@ use autodie;
 # PODNAME: md2phpbb
 # VERSION
 
-use File::Slurp qw(read_file);
-
 use Markdent::Parser;
 use Markdown::phpBB::Handler;
 
@@ -19,7 +17,7 @@ my $parser = Markdent::Parser->new(
     handler => $handler,
 );
 
-foreach my $file (@ARGV) {
-    $parser->parse(markdown => scalar read_file $file);
-    print $handler->result;
-}
+my $text = join('', <>);
+
+$parser->parse(markdown => $text);
+print $handler->result;
