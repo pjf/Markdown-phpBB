@@ -46,14 +46,14 @@ sub result {
 }
 
 my %tag = (
-    document       => [    "",        ""      ],
-    paragraph      => [    "",        "\n"    ],
-    emphasis       => [ qw([i]       [/i])    ],
-    strong         => [ qw([b]       [/b])    ],
-    unordered_list => [   "[ul]\n", "[/ul]\n" ],
-    list_item      => [ qw([li]      [/li] )  ],
-    link           => [ qw([url]     [/url])  ],
-    header         => [ "[b][size]", "[/size][/b]\n" ],
+    document       => [    "",           ""             ],
+    paragraph      => [    "",           "\n"           ],
+    emphasis       => [ qw([i]           [/i])          ],
+    strong         => [ qw([b]           [/b])          ],
+    unordered_list => [   "[list]\n",   "[/list]\n"     ],
+    list_item      => [ qw([li]          [/li] )        ],
+    link           => [ qw([url]         [/url])        ],
+    header         => [   "[b][size]",  "[/size][/b]\n" ],
 );
 
 my @heading_size = (36, 24, 18, 14, 12);
