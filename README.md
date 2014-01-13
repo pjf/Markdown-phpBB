@@ -21,5 +21,23 @@ This requires `Dist::Zilla` to install.
 
 Output is always sent to STDOUT.
 
+## Why?
+
+I found that phpBB syntax keeps getting in the way, but some of my
+favourite communities still use it. I use vimperator and vim to write
+all my text, so a command which lets me write in markdown and convert
+to phpBB was obvious.
+
 Of most use is `%!md2phpbb` in vim, which will replace your current
-buffer (written in markdown) with the phpBB equivalent code.
+buffer (written in markdown) with the phpBB equivalent code. You can even
+bind it to a key (place in your `~/.vimrc` file):
+
+    :nmap <F5> :%!md2phpbb<CR>
+
+If you're using vimperator, phpBB will get in the way of using CTRL-I to
+invoke vim. You can allow CTRL-E (or another key of your choice) to also
+invoke the editor by adding the following to your `~/.vimperatorrc` file:
+
+    :inoremap <C-e> <C-i>
+
+Enjoy!
