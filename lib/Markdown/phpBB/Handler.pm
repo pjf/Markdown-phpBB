@@ -35,8 +35,11 @@ sub result {
 
     $self->_cached(""); # Clear cache;
 
-    $cached =~ s{\n\[/li\]}{[/li]\n}g; # Fix ugly list elements
-    $cached =~ s{\s*$}{\n};            # Remove trailing whitespace
+    # Fix tags on wrong lines
+    $cached =~ s{\n\[/li\]}{[/li]\n}g;
+    $cached =~ s{\n\[/size\]\[/b\]}{[/size][/b]\n}g;
+
+    $cached =~ s{\s*$}{\n};                   # Remove trailing whitespace
 
     return $cached;
 
@@ -50,7 +53,10 @@ my %tag = (
     unordered_list => [   "[ul]\n", "[/ul]\n" ],
     list_item      => [ qw([li]      [/li] )  ],
     link           => [ qw([url]     [/url])  ],
+    header         => [ "[b][size]", "[/size][/b]\n" ],
 );
+
+my @heading_size = (36, 24, 18, 14, 12);
 
 sub text_for_event {
     my ($self, $event) = @_;
@@ -68,6 +74,12 @@ sub text_for_event {
     if ($name eq 'image') {
         my $url = $event->uri;
         return "[spoiler][img]$url\[/img][/spoiler]"
+    }
+
+    if ($name eq 'start_header') {
+        my $level = $event->level;
+        my $size  = $heading_size[$level-1];
+        return "[b][size=${size}pt]"
     }
 
     $name =~ s/^(?:start|end)_//;
