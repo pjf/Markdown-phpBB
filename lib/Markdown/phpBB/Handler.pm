@@ -36,6 +36,7 @@ sub result {
     $self->_cached(""); # Clear cache;
 
     $cached =~ s{\n\[/li\]}{[/li]\n}g; # Fix ugly list elements
+    $cached =~ s{\s*$}{\n};            # Remove trailing whitespace
 
     return $cached;
 
