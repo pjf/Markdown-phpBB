@@ -64,7 +64,8 @@ sub text_for_event {
     my $name  = $event->event_name;
     my $start = $event->is_start;
 
-    if ($name eq 'text') { return $event->text; }
+    if ($name eq 'text')            { return $event->text; }
+    if ($name eq 'horizontal_rule') { return "[hr]\n\n"    }
 
     if ($name eq 'start_link' ) {
         my $url = $event->uri;
@@ -75,6 +76,7 @@ sub text_for_event {
         my $url = $event->uri;
         return "[spoiler][img]$url\[/img][/spoiler]"
     }
+
 
     if ($name eq 'start_header') {
         my $level = $event->level;
