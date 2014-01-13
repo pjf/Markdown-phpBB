@@ -1,0 +1,25 @@
+#!/usr/bin/perl -w
+use 5.010;
+use strict;
+use warnings;
+use autodie;
+
+# ABSTRACT: Turn markdown into phpBB code
+# PODNAME: md2phpbb
+# VERSION
+
+use File::Slurp qw(read_file);
+
+use Markdent::Parser;
+use Markdown::phpBB::Handler;
+
+my $handler = Markdown::phpBB::Handler->new;
+
+my $parser = Markdent::Parser->new(
+    handler => $handler,
+);
+
+foreach my $file (@ARGV) {
+    $parser->parse(markdown => scalar read_file $file);
+    print $handler->result;
+}
