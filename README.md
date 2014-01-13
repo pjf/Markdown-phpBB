@@ -8,6 +8,8 @@ I also *love* patches. Please send them to me. :)
 
 ## Installing:
 
+This requires `Dist::Zilla` to install.
+
     $ git clone https://github.com/pjf/Markdown-phpBB.git
     $ cd Markdown-phpBB
     $ dzil install
