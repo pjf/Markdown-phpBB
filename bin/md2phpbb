@@ -8,16 +8,10 @@ use autodie;
 # PODNAME: md2phpbb
 # VERSION
 
-use Markdent::Parser;
-use Markdown::phpBB::Handler;
+use Markdown::phpBB;
 
-my $handler = Markdown::phpBB::Handler->new;
-
-my $parser = Markdent::Parser->new(
-    handler => $handler,
-);
+my $md2phpbb = Markdown::phpBB->new;
 
 my $text = join('', <>);
 
-$parser->parse(markdown => $text);
-print $handler->result;
+print $md2phpbb->convert($text);
