@@ -14,7 +14,8 @@ use autodie;
 
     # These aren't strictly phpBB, but I used them to simulate headers
 
-    s{\Q[b][size=18pt]\E\s*=?\s*(.*?)\s*=?\s*\Q[/size][/b]}{## $1}g;
+    s{\Q[b][size=18pt]\E\s*=?\s*(.*?)\s*=?\s*\Q[/size][/b]}{## $1}g;        # 18pt
+    s{\Q[b][size=14pt]\E\s*=?\s*(.*?)\s*=?\s*\Q[/size][/b]}{### $1}g;       # 14pt
 
     s{\[/?i\]}{*}g;
     s{\[/?b\]}{**}g;
