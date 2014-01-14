@@ -1,0 +1,26 @@
+#!/usr/bin/perl -w
+use 5.010;
+use strict;
+use warnings;
+use autodie;
+
+# Quick'n'dirty conversion
+
+{
+    local $/;
+    $_ = <>;    # Slurp
+
+    # These aren't strictly phpBB, but I used them to simulate headers
+
+    s{\Q[b][size=18pt]\E\s*=?\s*(.*?)\s*=?\s*\Q[/size][/b]}{## $1}g;
+
+    s{\[/?i\]}{*}g;
+    s{\[/?b\]}{**}g;
+    s{\[url=(?<url>.*?)\](?<text>.*?)\[/url\]}{[$+{text}]($+{url})}g;
+    s{\[/?list\]}{}g;
+    s{^\s*\[li\]}{* }mg;
+    s{\[/li\]}{}g;
+    s{\[img\](.*?)\[/img\]}{![]($1)}g;
+}
+
+print;
