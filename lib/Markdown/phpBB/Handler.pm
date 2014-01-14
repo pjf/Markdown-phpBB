@@ -51,14 +51,16 @@ sub result {
 }
 
 my %tag = (
-    document       => [    "",           ""             ],
-    paragraph      => [    "",           "\n"           ],
-    emphasis       => [ qw([i]           [/i])          ],
-    strong         => [ qw([b]           [/b])          ],
-    unordered_list => [   "[list]\n",   "[/list]\n"     ],
-    list_item      => [ qw([li]          [/li] )        ],
-    link           => [ qw([url]         [/url])        ],
-    header         => [   "[b][size]",  "[/size][/b]\n" ],
+    document       => [    "",                           ""             ],
+    paragraph      => [    "",                           "\n"           ],
+    emphasis       => [ qw([i]                           [/i])          ],
+    strong         => [ qw([b]                           [/b])          ],
+    unordered_list => [   "[list]\n",                   "[/list]\n"     ],
+    ordered_list   => [   "[list type=decimal]\n",      "[/list]\n"     ],
+    list_item      => [ qw([li]                          [/li] )        ],
+    link           => [ qw([url]                         [/url])        ],
+    header         => [   "[b][size]",                  "[/size][/b]\n" ],
+    code           => [   "[font=courier]",             "[/font]"       ],
 );
 
 my @heading_size = (36, 24, 18, 14, 12);
@@ -71,6 +73,9 @@ sub text_for_event {
 
     if ($name eq 'text')            { return $event->text; }
     if ($name eq 'horizontal_rule') { return "[hr]\n\n"    }
+
+    if ($name eq 'code_block')      { return "[code]".$event->code."[/code]" }
+    if ($name eq 'preformatted')    { return "[code]".$event->text."[/code]" }
 
     if ($name eq 'start_link' ) {
         my $url = $event->uri;
@@ -95,8 +100,7 @@ sub text_for_event {
     # Oh noes! Something went wrong.
 
     use Data::Dumper;
-    warn "Unknown markdown event: ". $event->event_name . "\n";
-    warn Dumper { $event->kv_pairs_for_attributes };
+    die "Unknown markdown event: ". $event->event_name . "\n\n" . Dumper { $event->kv_pairs_for_attributes };
 
     return;
 
