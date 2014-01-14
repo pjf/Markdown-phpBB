@@ -4,7 +4,9 @@ use strict;
 use warnings;
 use autodie;
 
-# Quick'n'dirty conversion
+# PODNAME: phpbb2md
+# ABSTRACT: Quick'n'dirty conversion of phpBB to markdown
+# VERSION
 
 {
     local $/;
