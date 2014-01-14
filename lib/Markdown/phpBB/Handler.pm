@@ -100,7 +100,7 @@ sub text_for_event {
     # Oh noes! Something went wrong.
 
     use Data::Dumper;
-    die "Unknown markdown event: ". $event->event_name . "\n\n" . Dumper { $event->kv_pairs_for_attributes };
+    warn "Unknown markdown event: ". $event->event_name . "\n\n" . Dumper { $event->kv_pairs_for_attributes };
 
     return;
 
