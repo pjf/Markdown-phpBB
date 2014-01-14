@@ -15,6 +15,8 @@ with 'Markdent::Role::Handler';
 
 has _cached    => (is => 'rw', isa => 'Str', default => '');
 
+our $DEBUG = $ENV{MD2PHPBBDEBUG} || 0;
+
 sub handle_event {
     my ($self, $event) = @_;
 
@@ -25,6 +27,9 @@ sub handle_event {
 
 sub add {
     my ($self, $text) = @_;
+
+    warn "$text\n" if $DEBUG;
+
     $self->_cached( $self->_cached . $text );
 }
 
