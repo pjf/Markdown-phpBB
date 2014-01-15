@@ -53,6 +53,12 @@ sub convert {
 
 1;
 
+=head1 SEE ALSO
+
+L<md2phpbb> - A stand-alone script for converting markdown to phpBB / BBcode.
+
+L<phpbb2md>, L<Markdown::phpBB::Handler>, L<Markdent>
+
 =head1 BUGS
 
 Plenty. Report them or fix them at
