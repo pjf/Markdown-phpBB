@@ -8,6 +8,22 @@ use autodie;
 # ABSTRACT: Quick'n'dirty conversion of phpBB to markdown
 # VERSION
 
+=head1 SYNPOSIS
+
+    phpbb2md < somefile.bbcode > somefile.md
+
+=head1 DESCRIPTION
+
+This is a quick'n'dirty command that converts phpBB / BBcode into
+markdown format.
+
+=head1 BUGS
+
+Plenty. Report them or fix them at
+L<http://github.com/pjf/Markdown-phpBB/issues>.
+
+=cut
+
 {
     local $/;
     $_ = <>;    # Slurp

@@ -11,27 +11,71 @@ use Data::Dumper;
 
 # VERSION
 
+=head1 SYNOPSIS
+
+    use Markdent::Parser;
+    use Markdown::phpBB::Handler;
+
+    my $handler = Markdown::phpBB::Handler->new;
+
+    my $parser = Markdent::Parser->new(
+        handler => $handler,
+        dialect => 'GitHub',  # optional
+    );
+
+    $parser->parse(markdown => $md);
+
+    my $phpBB = $handler->reseult;
+
+=head1 DESSCRIPTION
+
+This is a L<Markdent::Role::Handler> which produces phpBB / BBcode
+from Markdown.
+
+It will emit a warning (but will continue) if it encounters events
+it does not understand. Patches are very welcome.
+
+=cut
+
 with 'Markdent::Role::Handler';
 
 has _cached    => (is => 'rw', isa => 'Str', default => '');
 
 our $DEBUG = $ENV{MD2PHPBBDEBUG} || 0;
 
+=method handle_event
+
+Called by L<Markdent::Parser>. Takes an event and processes it.
+
+=cut
+
 sub handle_event {
     my ($self, $event) = @_;
 
-    $self->add( $self->text_for_event($event) || "");
+    $self->_add( $self->_text_for_event($event) || "");
     
     return;
 }
 
-sub add {
+sub _add {
     my ($self, $text) = @_;
 
     warn "$text\n" if $DEBUG;
 
     $self->_cached( $self->_cached . $text );
 }
+
+=method result
+
+    my $phpbb = $handler->result;
+
+Returns the final string in phpBB after conversion.
+
+Note that in the current version, calling this also resets the handler
+state, so subsequent calls with return an empty string. Patches welcome
+to fix this.
+
+=cut
 
 sub result {
     my ($self) = @_;
@@ -65,7 +109,7 @@ my %tag = (
 
 my @heading_size = (36, 24, 18, 14, 12);
 
-sub text_for_event {
+sub _text_for_event {
     my ($self, $event) = @_;
 
     my $name  = $event->event_name;
@@ -107,3 +151,17 @@ sub text_for_event {
 }
 
 1;
+
+=head1 SEE ALSO
+
+L<Markdown::phpBB>, L<md2phpbb>, L<phpbb2md>, L<Markdent>
+
+=head1 BUGS
+
+Plenty. In particular, calling C<result> a second time will return an
+empty string.
+
+Report them or fix them at
+L<http://github.com/pjf/Markdown-phpBB/issues>.
+
+=cut
