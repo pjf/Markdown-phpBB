@@ -105,6 +105,7 @@ my %tag = (
     link           => [ qw([url]                         [/url])        ],
     header         => [   "[b][size]",                  "[/size][/b]\n" ],
     code           => [   "[font=courier]",             "[/font]"       ],
+    blockquote     => [ qw([quote]                       [/quote])      ],
 );
 
 my @heading_size = (36, 24, 18, 14, 12);
